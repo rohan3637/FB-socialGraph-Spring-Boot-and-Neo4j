@@ -25,40 +25,38 @@ public class AssociationController {
 
     @PostMapping("")
     public ResponseEntity<Void> createAssociation(
-            @RequestBody AssociationDto associationDao) {
-        associationService.createAssociation(
-                associationDao.getStartObjectId(),
-                associationDao.getEndObjectId(),
-                associationDao.getType());
+        @RequestBody AssociationDto associationDao
+    ){
+        associationService.createAssociation(associationDao.getStartObjectId(), associationDao.getEndObjectId(), associationDao.getType());
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping("/{id1}/{id2}")
     public ResponseEntity<Void> findAssociation(
-            @PathVariable Long id1,
-            @PathVariable Long id2,
-            @RequestParam AssociationType associationType) {
+        @PathVariable Long id1,
+        @PathVariable Long id2,
+        @RequestParam AssociationType associationType
+    ){
         associationService.associationExists(id1, id2, associationType);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/{objectId}/count")
     public ResponseEntity<Long> countAssociation(
-            @PathVariable Long objectId,
-            @RequestParam AssociationType associationType,
-            ObjectType objectType) {
-        Long count = associationService.countAssociation(
-                objectId,
-                associationType,
-                objectType);
+        @PathVariable Long objectId,
+        @RequestParam AssociationType associationType,
+        ObjectType objectType
+    ){
+        Long count = associationService.countAssociation(objectId, associationType, objectType);
         return new ResponseEntity<>(count, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id1}/{id2}")
     public ResponseEntity<Void> deleteAssociation(
-            @PathVariable Long id1,
-            @PathVariable Long id2,
-            @RequestParam AssociationType associationType) {
+        @PathVariable Long id1,
+        @PathVariable Long id2,
+        @RequestParam AssociationType associationType
+    ){
         associationService.deleteAssociation(id1, id2, associationType);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
